@@ -5,7 +5,7 @@ import org.restlet.Component;
 import org.restlet.Restlet;
 import org.restlet.data.Protocol;
 import org.restlet.routing.Router;
-import org.stackednotion.datastatus.Settings;
+import org.stackednotion.datastatus.DataStatusApplication;
 import org.stackednotion.datastatus.server.resources.StatusResource;
 
 import android.util.Log;
@@ -29,9 +29,9 @@ public class ServerApplication extends Application {
 			component.getDefaultHost().attach(new ServerApplication());
 			component.start();
 
-			Log.d(Settings.LOG_TAG, "ServerApplication#startServer: Started at on port " + String.valueOf(port));
+			Log.d(DataStatusApplication.LOG_TAG, "ServerApplication#startServer: Started at on port " + String.valueOf(port));
 		} catch (Exception e) {
-			Log.e(Settings.LOG_TAG, "ServerApplication#startServer: Exception while starting server", e);
+			Log.e(DataStatusApplication.LOG_TAG, "ServerApplication#startServer: Exception while starting server", e);
 		}
 	}
 
@@ -39,9 +39,9 @@ public class ServerApplication extends Application {
 		try {
 			component.stop();
 
-			Log.d(Settings.LOG_TAG, "ServerApplication#stopServer: Server stopped");
+			Log.d(DataStatusApplication.LOG_TAG, "ServerApplication#stopServer: Server stopped");
 		} catch (Exception e) {
-			Log.e(Settings.LOG_TAG, "ServerApplication#stopServer: Exception while stopping server", e);
+			Log.e(DataStatusApplication.LOG_TAG, "ServerApplication#stopServer: Exception while stopping server", e);
 		}
 	}
 }

@@ -11,10 +11,10 @@ public class AutoStarter extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		Log.d(Settings.LOG_TAG, "AutoStarter#onReceive: Received intent " + intent.getAction());
+		Log.d(DataStatusApplication.LOG_TAG, "AutoStarter#onReceive: Received intent " + intent.getAction());
 		
 		// init settings from context
-		Settings.init(context);
+		DataStatusApplication.init(context);
 		
 		SharedPreferences sharedPreferences = PreferenceManager
 		.getDefaultSharedPreferences(context);
@@ -25,10 +25,10 @@ public class AutoStarter extends BroadcastReceiver {
 			// check if service is enabled
 			if (sharedPreferences.getBoolean("service_enabled", false))
 			{
-				Log.d(Settings.LOG_TAG, "AutoStarter#onReceive: Starting service");
+				Log.d(DataStatusApplication.LOG_TAG, "AutoStarter#onReceive: Starting service");
 			
 				// start service
-				context.startService(new Intent(Settings.getContext(), DataStatusService.class));
+				context.startService(new Intent(DataStatusApplication.getContext(), DataStatusService.class));
 			}
 		}
 	}

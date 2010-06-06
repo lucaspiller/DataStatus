@@ -39,32 +39,33 @@ public class DataStatusService extends Service {
 		return mBinder;
 	}
 
+	private OnSharedPreferenceChangeListener preferenceListener;
+
 	@Override
 	public void onCreate() {
-		Settings.signalStrengthListener = new SignalStrengthListener();
+		DataStatusApplication.signalStrengthListener = new SignalStrengthListener();
 		telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 
-		// bind to shared preferences
-		SharedPreferences sharedPreferences = PreferenceManager
-				.getDefaultSharedPreferences(this);
-		sharedPreferences
-				.registerOnSharedPreferenceChangeListener(new OnSharedPreferenceChangeListener() {
-					public void onSharedPreferenceChanged(
-							SharedPreferences sharedPreferences, String key) {
-						// stop the service when unchecked
-						// user clicked enable service
-						if (key.equals("service_enabled")) {
-							// state is not enabled
-							if (!sharedPreferences.getBoolean(key, false)) {
-								Log.d(Settings.LOG_TAG, "DataStatusService#onSharedPreferenceChanged: Stopping service");
-								
-								// stop service
-								stopService(new Intent(Settings.getContext(),
-										DataStatusService.class));
-							}
-						}
+		// create preference listener
+		preferenceListener = new OnSharedPreferenceChangeListener() {
+			public void onSharedPreferenceChanged(
+					SharedPreferences sharedPreferences, String key) {
+				// stop the service when unchecked
+				// user clicked enable service
+				if (key.equals("service_enabled")) {
+					// state is not enabled
+					if (!sharedPreferences.getBoolean(key, false)) {
+						Log
+								.d(DataStatusApplication.LOG_TAG,
+										"DataStatusService#onSharedPreferenceChanged: Stopping service");
+
+						// stop service
+						stopService(new Intent(DataStatusApplication
+								.getContext(), DataStatusService.class));
 					}
-				});
+				}
+			}
+		};
 	}
 
 	private boolean isRunning = false;
@@ -72,15 +73,26 @@ public class DataStatusService extends Service {
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		if (!isRunning) {
-			telephonyManager.listen(Settings.signalStrengthListener,
+			// listen to sharedPreferences changes
+			SharedPreferences sharedPreferences = PreferenceManager
+					.getDefaultSharedPreferences(this);
+			sharedPreferences
+					.registerOnSharedPreferenceChangeListener(preferenceListener);
+			
+			// start server
+			telephonyManager.listen(
+					DataStatusApplication.signalStrengthListener,
 					PhoneStateListener.LISTEN_DATA_CONNECTION_STATE);
 			ServerApplication.startServer(serverPort);
 
 			isRunning = true;
 
 			Toast.makeText(this, "Service Started", Toast.LENGTH_SHORT).show();
+		} else {
+			Log.d(DataStatusApplication.LOG_TAG,
+					"DataStatusService#onStartCommand: Already running");
 		}
-		
+
 		// We want this service to be kept alive (not necessarily running)
 		// until it is explicitly stopped, so return sticky.
 		return START_STICKY;
@@ -88,7 +100,14 @@ public class DataStatusService extends Service {
 
 	@Override
 	public void onDestroy() {
-		telephonyManager.listen(Settings.signalStrengthListener,
+		// stop listening to sharedPreferences changes
+		SharedPreferences sharedPreferences = PreferenceManager
+				.getDefaultSharedPreferences(this);
+		sharedPreferences
+				.unregisterOnSharedPreferenceChangeListener(preferenceListener);
+
+		// shutdown server
+		telephonyManager.listen(DataStatusApplication.signalStrengthListener,
 				PhoneStateListener.LISTEN_NONE);
 		ServerApplication.stopServer();
 

@@ -1,8 +1,9 @@
 package org.stackednotion.datastatus;
 
+import android.app.Application;
 import android.content.Context;
 
-public class Settings {
+public class DataStatusApplication extends Application {
 	public static final String LOG_TAG = "DataStatus";
 
 	private static Context context;
