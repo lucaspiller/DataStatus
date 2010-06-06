@@ -20,12 +20,16 @@ public class AutoStarter extends BroadcastReceiver {
 		.getDefaultSharedPreferences(context);
 		
 		// check if start on boot is enabled
-		if (sharedPreferences.getBoolean("service_enabled", false))
+		if (sharedPreferences.getBoolean("start_on_boot", false))
 		{
-			Log.d(Settings.LOG_TAG, "AutoStarter#onReceive: Starting service");
+			// check if service is enabled
+			if (sharedPreferences.getBoolean("service_enabled", false))
+			{
+				Log.d(Settings.LOG_TAG, "AutoStarter#onReceive: Starting service");
 			
-			// start service
-			context.startService(new Intent(Settings.getContext(), DataStatusService.class));
+				// start service
+				context.startService(new Intent(Settings.getContext(), DataStatusService.class));
+			}
 		}
 	}
 }
