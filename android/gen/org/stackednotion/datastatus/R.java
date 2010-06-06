@@ -18,9 +18,12 @@ public final class R {
     }
     public static final class string {
         public static final int app_name=0x7f040000;
+        /**   settings 
+         */
         public static final int settings_service_enabled=0x7f040001;
         public static final int settings_service_enabled_substring=0x7f040002;
-        public static final int settings_start_on_boot=0x7f040003;
-        public static final int settings_start_on_boot_substring=0x7f040004;
+        public static final int settings_service_settings_category=0x7f040003;
+        public static final int settings_start_on_boot=0x7f040004;
+        public static final int settings_start_on_boot_substring=0x7f040005;
     }
 }
