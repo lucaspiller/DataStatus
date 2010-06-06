@@ -29,7 +29,7 @@ public class ServerApplication extends Application {
 			component.getDefaultHost().attach(new ServerApplication());
 			component.start();
 
-			Log.v(Settings.LOG_TAG, "Server started at on port " + String.valueOf(port));
+			Log.d(Settings.LOG_TAG, "Server started at on port " + String.valueOf(port));
 		} catch (Exception e) {
 			Log.e(Settings.LOG_TAG, "Exception while starting server", e);
 		}
@@ -39,7 +39,7 @@ public class ServerApplication extends Application {
 		try {
 			component.stop();
 
-			Log.v(Settings.LOG_TAG, "Server stopped");
+			Log.d(Settings.LOG_TAG, "Server stopped");
 		} catch (Exception e) {
 			Log.e(Settings.LOG_TAG, "Exception while stopping server", e);
 		}
