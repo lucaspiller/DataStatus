@@ -2,4 +2,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 	<CheckBoxPreference android:key="service_enabled"
 		android:title="@string/settings_service_enabled" android:summary="@string/settings_service_enabled_substring" />
+	<CheckBoxPreference android:key="start_on_boot"
+		android:title="@string/settings_start_on_boot" android:summary="@string/settings_start_on_boot_substring" />
 </PreferenceScreen>

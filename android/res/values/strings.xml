@@ -5,4 +5,7 @@
     
 	<string name="settings_service_enabled">Enabled</string>
 	<string name="settings_service_enabled_substring">The Data Status service will be enabled</string>
+	
+	<string name="settings_start_on_boot">Start On Boot</string>
+	<string name="settings_start_on_boot_substring">The Data Status service will start when your phoned is switched on</string>
 </resources>
