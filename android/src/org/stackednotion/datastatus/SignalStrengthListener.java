@@ -24,25 +24,5 @@ public class SignalStrengthListener extends PhoneStateListener {
 	public int getDataConnectionType()
 	{
 		return dataConnectionType;
-		
-		/*switch(dataConnectionType)
-		{
-			case TelephonyManager.NETWORK_TYPE_HSUPA:
-			case TelephonyManager.NETWORK_TYPE_HSPA:
-			case TelephonyManager.NETWORK_TYPE_HSDPA:
-				return "H";
-				
-			case TelephonyManager.NETWORK_TYPE_UMTS:
-				return "3G";
-				
-			case TelephonyManager.NETWORK_TYPE_EDGE:
-				return "E";
-				
-			case TelephonyManager.NETWORK_TYPE_GPRS:
-				return "G";
-				
-			default:
-				return "--";
-		}*/
 	}
 }
