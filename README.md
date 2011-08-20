@@ -2,6 +2,18 @@
 
 DataStatus is a simple background service for Android, and a Mac OS X menubar widget, which allows you to see what state the data connection is in your Android phone. You are probably thinking, why the hell would you want that? I use it when I am on a train with a usually dodgy 3G signal and have my laptop tethered to my phone. It is quite useful to know whether a website isn't loading because it is down or whether you just have a poor network connection.
 
+## Usage
+
+First download the Android server, and start it up:
+
+[DataStatus-1.0.apk](https://github.com/lucaspiller/DataStatus/DataStatus-1.0.apk/qr_code)
+
+Next download a widget, currently there is only one available for OS X, but feel free to contribute one for your platform!
+
+[DataStatus-OSX-1.0.zip](https://github.com/downloads/lucaspiller/DataStatus/DataStatus-OSX-1.0.zip)
+
+The widget is currently hardcoded to use the IP 192.168.43.1, the IP used when tethering with your phone. If you know Cocoa programming, please suggest how to create a preference pane to enter a custom IP :)
+
 ## Current Status
 
 At the moment there is only an OS X menubar widget, however the service exposes a simple HTTP API, so it should be easy to do the same for other platforms. The IP address of the phone is currently hardcoded, however I would prefer if this uses UDP multicasting. I had a bit of a play about with this, and it appears that this isn't supported when tethering to the Android device (over regular wifi it is fine). If anyone knows a way around this it would be most appreciated :)
